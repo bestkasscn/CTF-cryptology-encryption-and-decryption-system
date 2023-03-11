@@ -1,3 +1,17 @@
+"""
+-------------------------------------------------
+@FileName:decimalconversion.py
+@Description:任意进制转换
+@Author:bestkasscn
+@Time:2023/3/11
+@Principle:
+-------------------------------------------------
+@TestCase:print(dec_to_base(123, 3))
+@Status:已测试
+-------------------------------------------------
+"""
+
+
 def dec_to_base(number, base):
     """
     将十进制数转换为任意进制数
@@ -34,4 +48,3 @@ def base_to_dec(number, base):
     return result
 
 
-print(dec_to_base(123, 3))  # 输出: 1111011

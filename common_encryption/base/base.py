@@ -193,5 +193,5 @@ def attack(plaintext: str, format: str) -> str:
     return plaintext
 
 
-plaintext = 'this_is_a_test_flag'
+plaintext = 'NSSCTF{this_is_a_test_flag}'
 print(base16encode(plaintext))
