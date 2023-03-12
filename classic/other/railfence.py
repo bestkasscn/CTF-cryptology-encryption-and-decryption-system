@@ -1,3 +1,15 @@
+"""
+-------------------------------------------------
+@FileName:railfence.py
+@Description:栅栏密码
+@Author:bestkasscn
+@Time:2023/3/11
+@Principle: 
+-------------------------------------------------
+@TestCase:
+@Status:
+-------------------------------------------------
+"""
 from pycipher.railfence import Railfence
 
 

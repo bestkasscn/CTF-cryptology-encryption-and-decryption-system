@@ -1,7 +1,7 @@
 """
 -------------------------------------------------
 @FileName:adfgx.py
-@Description:ADFGX密码是一种基于多表置换和替代的密码技术
+@Description:ADFGX密码
 @Author:bestkasscn
 @Time:2023/2/7
 @principle:ADFGX密码是一种基于多表置换和替代的密码技术，由德国陆军在一战期间使用。

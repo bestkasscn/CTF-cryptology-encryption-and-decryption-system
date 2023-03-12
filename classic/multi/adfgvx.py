@@ -1,7 +1,7 @@
 """
 -------------------------------------------------
 @FileName:adfgvx.py
-@Description:ADFGVX密码是一种基于置换和替换的加密方法
+@Description:ADFGVX密码
 @Author:bestkasscn
 @Time:2023/2/5
 @principle: ADFGVX密码的加密过程包括以下步骤：
