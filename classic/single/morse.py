@@ -1,3 +1,18 @@
+"""
+-------------------------------------------------
+@FileName:morse.py
+@Description:摩斯电码
+@Author:bestkasscn
+@Time:2023/1/10
+@Principle: 摩斯电码是一种通信方法，它使用点和划的组合来表示字母、数字和符号。
+点是短脉冲，划是长脉冲，它们之间需要有一个短暂的间隔，而字符之间需要有一个较长的间隔。
+通过听觉或视觉方式解码摩斯电码可以识别字符。这种通信方法非常简单而且可靠，特别适用于在没有共同语言的情况下进行通信，例如在海上、航空或军事通信中。
+-------------------------------------------------
+@TestCase:
+print(morse_decrypt('- .... .. ... ..--.- .. ... ..--.- .- ..--.- - . ... -'))
+@Status:已测试
+-------------------------------------------------
+"""
 morse_table = {
     'A': '.-', 'N': '-.', '.': '.-.-.-', '+': '.-.-.', '1': '.----',
     'B': '-...', 'O': '---', ',': '--..--', '_': '..--.-', '2': '..---',
@@ -17,22 +32,21 @@ morse_dir = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.!@#$%^&*()_+:"?/=,\''
 
 
 def morse_encrypt(plaintext: str) -> str:
-    res = ''
+    ciphertext = ''
     for s in plaintext:
         if s.upper() not in morse_table:
             return "无法解密"
-        res += ''.join(morse_table.get(s.upper())) + " "
-    return res
+        ciphertext += ''.join(morse_table.get(s.upper())) + " "
+    return ciphertext
 
 
 def morse_decrypt(plaintext: str) -> str:
     table = plaintext.split(" ")
-    res = ''
+    plaintext = ''
     for s in table:
         for i in morse_dir:
             if morse_table.get(i) == s:
-                res += ''.join(i)
-    return res
+                plaintext += ''.join(i)
+    return plaintext
 
 
-print(morse_decrypt('- .... .. ... ..--.- .. ... ..--.- .- ..--.- - . ... -'))

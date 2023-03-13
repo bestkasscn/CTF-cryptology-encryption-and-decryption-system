@@ -77,15 +77,15 @@ def DecryptRuShiWoWen(ciphertext):
     return zipContent
 
 
-if __name__ == '__main__':
+def yufolunchanAttack(foYu: str):
     try:
-        foYu = "佛曰：奢他奢所諳訶滅呐老至皤婆悉罰蒙怯諸侄遠諳知奢藐呐滅哆滅缽佛蘇諸薩大諳藐阿不有奢豆槃罰數怯室喝怯藝呐怖彌怯佛世滅怯耨冥無涅心佛無曰摩怖逝度無集呐耨羅輸罰帝奢朋冥究盧諸般參耨朋究寫瑟梵道梵遠勝涅皤婆怯醯者迦智奢遮缽姪俱朋世皤無舍寫呼悉迦集諳亦等冥若冥般心娑哆道冥倒俱故迦諳遮槃那"
+        # foYu = "佛曰：奢他奢所諳訶滅呐老至皤婆悉罰蒙怯諸侄遠諳知奢藐呐滅哆滅缽佛蘇諸薩大諳藐阿不有奢豆槃罰數怯室喝怯藝呐怖彌怯佛世滅怯耨冥無涅心佛無曰摩怖逝度無集呐耨羅輸罰帝奢朋冥究盧諸般參耨朋究寫瑟梵道梵遠勝涅皤婆怯醯者迦智奢遮缽姪俱朋世皤無舍寫呼悉迦集諳亦等冥若冥般心娑哆道冥倒俱故迦諳遮槃那"
 
         foYu = split("[:：]", foYu)
         if len(foYu) > 1:
             foYu = "".join(foYu[1:]).strip()
         else:
             foYu = foYu[0]
-        print(DecryptFoYue(foYu))
+        return DecryptFoYue(foYu)
     except:
-        print(DecryptRuShiWoWen(foYu))
+        return DecryptRuShiWoWen(foYu)

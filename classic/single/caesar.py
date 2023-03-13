@@ -1,3 +1,15 @@
+"""
+-------------------------------------------------
+@FileName:caesar.py
+@Description:凯撒密码
+@Author:bestkasscn
+@Time:2023/1/10
+@Principle:
+-------------------------------------------------
+@TestCase:
+@Status:
+-------------------------------------------------
+"""
 from string import ascii_letters
 
 
@@ -9,17 +21,17 @@ def caesar_encrypt(plaintext: str, key: int) -> str:
     """
     if key < 0:
         raise Exception("Key must be non-negative")
-    res = ''
+    ciphertext = ''
     key = key % 26
     for s in plaintext:
         if s in ascii_letters:
             if chr(ord(s) + key) in ascii_letters:
-                res += chr(ord(s) + key)
+                ciphertext += chr(ord(s) + key)
             else:
-                res += chr(ord(s) + key - 26)
+                ciphertext += chr(ord(s) + key - 26)
         else:
-            res += s
-    return res
+            ciphertext += s
+    return ciphertext
 
 
 def caesar_decrypt(ciphertext: str, key: int) -> str:
@@ -30,17 +42,17 @@ def caesar_decrypt(ciphertext: str, key: int) -> str:
     """
     if key < 0:
         raise Exception("Key must be non-negative")
-    res = ''
+    plaintext = ''
     key = key % 26
     for s in ciphertext:
         if s in ascii_letters:
             if chr(ord(s) - key) in ascii_letters:
-                res += chr(ord(s) - key)
+                plaintext += chr(ord(s) - key)
             else:
-                res += chr(ord(s) - key + 26)
+                plaintext += chr(ord(s) - key + 26)
         else:
-            res += s
-    return res
+            plaintext += s
+    return plaintext
 
 
 def caesarAttack(ciphertext: str):
