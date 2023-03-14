@@ -12,17 +12,19 @@ plaintext = "HELLO WORLD!"
 key = 7
 
 # 加密
-ciphertext = encrypt(plaintext, key)
+ciphertext = simpleSubstitution_encrypt(plaintext, key)
 print("密文: ", ciphertext)
 
 # 解密
-decrypted_text = decrypt(ciphertext, key)
+decrypted_text = simpleSubstitution_decrypt(ciphertext, key)
 print("明文: ", decrypted_text)
 @Status:已测试
 -------------------------------------------------
 """
+
+
 # 简单替换密码加密脚本
-def encrypt(plaintext:str, key:int) -> str:
+def simpleSubstitution_encrypt(plaintext: str, key: int) -> str:
     ciphertext = ""
     for char in plaintext:
         if char.isalpha():
@@ -36,7 +38,7 @@ def encrypt(plaintext:str, key:int) -> str:
 
 
 # 简单替换密码解密脚本
-def decrypt(ciphertext:str, key:int) -> str:
+def simpleSubstitution_decrypt(ciphertext: str, key: int) -> str:
     plaintext = ""
     for char in ciphertext:
         if char.isalpha():
@@ -47,15 +49,3 @@ def decrypt(ciphertext:str, key:int) -> str:
             # 非字母字符直接添加
             plaintext += char
     return plaintext
-
-
-plaintext = "HELLO WORLD!"
-key = 7
-
-# 加密
-ciphertext = encrypt(plaintext, key)
-print("密文: ", ciphertext)
-
-# 解密
-decrypted_text = decrypt(ciphertext, key)
-print("明文: ", decrypted_text)

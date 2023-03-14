@@ -1,3 +1,15 @@
+"""
+-------------------------------------------------
+@FileName:base.py
+@Description:base家族编解码算法
+@Author:bestkasscn
+@Time:2023/1/10
+@Principle:
+-------------------------------------------------
+@TestCase:
+@Status:
+-------------------------------------------------
+"""
 import binascii
 from base64 import *
 import string
@@ -43,7 +55,7 @@ def base58encode(plaintext: str):
     """
         base58编码典型应用是比特币钱包，与base64相比，去除了0、I、O、l、/ +等不易辨认的6个字符
         base58的编码思路是反复除以58取余数直至为0，base64的编码原理是64进制，2的6次方刚好等于64
-        :param string_input: 输入待编码的字符
+        :param plaintext: 输入待编码的字符
         :return: base58的编码值
     """
 
