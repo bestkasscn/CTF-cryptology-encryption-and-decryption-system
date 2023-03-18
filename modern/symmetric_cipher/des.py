@@ -64,6 +64,7 @@ from Crypto.Util import Counter
 from Crypto.Util.Padding import pad, unpad
 from base64 import b64encode
 
+
 def des_encrypt(key: bytes, plaintext: bytes, mode: str, iv=None) -> bytes:
     """
     DES加密函数，对明文进行加密操作。
@@ -120,18 +121,3 @@ def des_decrypt(key: bytes, ciphertext: bytes, mode: str, iv=None) -> bytes:
 
     plaintext = unpad(des.decrypt(ciphertext), block_size=8)
     return plaintext
-
-
-key = b'_nssctf_'
-plaintext = b'NSSCTF{a_little_bit_des_party}'
-mode = 'CBC'
-iv = b'initialv'
-
-ciphertext = des_encrypt(key, plaintext, mode, iv)
-print('key: ', key)
-print('mode: ', mode)
-print('iv: ', iv)
-print('密文: ', ciphertext)
-
-decrypted = des_decrypt(key, ciphertext, mode, iv)
-print('明文:', decrypted)
