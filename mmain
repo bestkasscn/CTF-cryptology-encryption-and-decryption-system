@@ -1,0 +1,104 @@
+import os
+import argparse
+from email import policy
+from email.parser import BytesParser
+import pandas as pd
+
+
+def extract_attachments_from_email(eml_file_path):
+    """从给定的EML文件路径中提取附件并返回它们的路径"""
+    with open(eml_file_path, 'rb') as f:
+        msg = BytesParser(policy=policy.default).parse(f)
+
+    if not msg.is_multipart():
+        return []
+
+    attachments = []
+    for part in msg.walk():
+        if is_attachment(part):
+            filename = part.get_filename() or "unnamed_attachment"
+            payload = part.get_payload(decode=True)
+            attachments.append((filename, payload))
+
+    attachment_paths = []
+    if attachments:
+        directory_name = os.path.splitext(os.path.basename(eml_file_path))[0]
+        save_directory = os.path.join(os.path.dirname(eml_file_path), directory_name)
+        os.makedirs(save_directory, exist_ok=True)
+        for filename, payload in attachments:
+            file_path = os.path.join(save_directory, filename)
+            try:
+                with open(file_path, 'wb') as attach_file:
+                    attach_file.write(payload)
+                attachment_paths.append(file_path)
+            except Exception as e:
+                print(f"Error saving {filename}: {e}")
+
+    return attachment_paths
+
+
+def is_attachment(part):
+    """检查邮件部分是否是附件"""
+    content_disposition = part.get('Content-Disposition')
+    # 检查 MIME 类型
+    content_type = part.get_content_type()
+
+    # 增加了对 inline 的检查以及基于 MIME 类型的简单检查
+    if (content_disposition and ('attachment' in content_disposition or 'inline' in content_disposition)) or \
+            content_type.startswith("application/"):
+        return True
+    return False
+
+
+def process_directory_for_attachments(base_directory):
+    """处理目录中的所有EML文件并返回所有附件的路径"""
+    if not base_directory:
+        print("警告：请输入一个文件夹路径！")
+        return []
+
+    all_attachment_paths = []
+    for root, _, files in os.walk(base_directory):
+        for file in files:
+            if file.endswith('.eml'):
+                all_attachment_paths.extend(extract_attachments_from_email(os.path.join(root, file)))
+
+    return all_attachment_paths
+
+
+def generate_attachment_data_to_excel(attachment_paths, base_directory):
+    """根据附件路径列表生成Excel数据"""
+    if not attachment_paths:
+        print("No attachments found.")
+        return
+
+    print("正在统计数据...")
+    catalogs = [os.path.dirname(path) for path in attachment_paths]
+    filenames = [os.path.basename(path) for path in attachment_paths]
+
+    df = pd.DataFrame({
+        '目录': catalogs,
+        '文件名': filenames,
+    })
+    filepath = os.path.join(base_directory, '数据统计.xlsx')
+    df.to_excel(filepath, sheet_name='sheet1', index=False)
+    print(f"数据已保存到 {filepath}")
+
+
+def main():
+    parser = argparse.ArgumentParser(description="提取邮件附件并统计文件信息")
+    parser.add_argument("path", help="要处理的文件夹路径")
+    args = parser.parse_args()
+
+    if not os.path.exists(args.path):
+        print(f"路径 {args.path} 不存在，请检查后重试。")
+        return
+
+    attachment_paths = process_directory_for_attachments(args.path)
+    generate_attachment_data_to_excel(attachment_paths, args.path)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as e:
+        print(f"Unexpected error: {e}")
